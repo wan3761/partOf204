@@ -1,0 +1,53 @@
+
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+<form action="/index" id = "form">
+    <input id="name" type="text"/><span class="warring" id="name_text" ></span><br/>
+    <input id="pwd" type="password"/>
+    <span id="pwd_text" class="warring"></span><br/>
+    <input type="button" onclick="chick()" value="登录"></input>
+</form>
+<style>
+    .warring{
+        color: red;
+    }
+</style>
+<script>
+    function chick(){
+        var username = document.getElementById("name").value;
+        var password = document.getElementById("pwd").value;
+        var flag = true;
+        if (password === ""){
+            document.getElementById("pwd_text").innerText="密码不能为空"
+            flag=false;
+        }
+        if (username === ""){
+            document.getElementById("name_text").innerText="用户名不能为空"
+            flag=false;
+        }
+        if (flag){
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', '/login', true);
+            xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xhr.send('password='+password+'&'+'username='+username);
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState !== 4) return;
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+                    if(xhr.responseText === "ok"){
+                        document.getElementById("form").submit()
+                    }else{
+                        document.getElementById("pwd_text").innerText="账号或密码不正确"
+                    }
+                }
+            };
+        }
+    }
+</script>
+</body>
+</html>
