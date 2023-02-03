@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加事件</title>
+</head>
+<body>
+<input type="button" value="加一行"  id="new_line" onclick="addLine()"/>
+<table border="1" id="table">
+  <form action="/record/history" class="form">
+  <tr>
+      <td>日期:<input type="date" class="time" /></td>
+      <td>描述:<input type="text" class="describe" /></td>
+      <td>相关人员（姓名首字母）:<input type="text" class="username"></td>
+      <td><span class="status" style="color: red"></span></td>>
+  </tr><br/>
+  </form>
+</table>
+<input type="button" value="提交" onclick="AClick()"/>
+<script>
+    function addLine(){
+        var dates = document.getElementsByClassName("time")
+        var describes = document.getElementsByClassName("describe")
+        var usernames = document.getElementsByClassName("username")
+
+        var dates_v = []
+        var describes_v = []
+        var usernames_v = []
+
+        for (var i = 0;i<dates.length;i++){
+            dates_v[i]=dates[i].value;
+            describes_v[i] = describes[i].value;
+            usernames_v[i]=usernames[i].value;
+        }
+
+        document.getElementById("table").innerHTML = document.getElementById("table").innerHTML+"  <form action=\"/record/history\" class=\"form\">\n" +
+            "  <tr>\n" +
+            "      <td>日期:<input type=\"date\" class=\"time\" /></td>\n" +
+            "      <td>描述:<input type=\"text\" class=\"describe\" /></td>\n" +
+            "      <td>相关人员（姓名首字母）:<input type=\"text\" class=\"username\"></td>\n" +
+            "      <td><span class=\"status\" style=\"color: red\"></span></td>>\n" +
+            "  </tr><br/>\n" +
+            "  </form>"
+
+        var dates1 = document.getElementsByClassName("time")
+        var describes1 = document.getElementsByClassName("describe")
+        var usernames1 = document.getElementsByClassName("username")
+        for (var i = 0;i<dates_v.length;i++){
+            dates1[i].value=dates_v[i];
+            describes1[i].value=describes_v[i];
+            usernames1[i].value=usernames_v[i];
+        }
+    }
+    function AClick(){
+        var dates = document.getElementsByClassName("time")
+        var describes = document.getElementsByClassName("describe")
+        var usernames = document.getElementsByClassName("username")
+        var forms = document.getElementsByClassName("form")
+        var spans = document.getElementsByClassName("status")
+
+        var flag = true;
+
+        for (var i = 0;i<dates.length;i++){
+
+            if (dates[i].value === '' || describes[i].value === '' || usernames[i].value === ''){
+                spans[i].innerHTML="请核对该行"
+                flag=false;
+                continue
+            }
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', '/record/newEvent', false);
+            xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState !== 4) return;
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+                    if(xhr.responseText === "ok"){
+                        spans[i].innerText="成功";
+                        spans[i].style="color: green";
+                    }else{
+                        spans[i].innerHTML="失败:"+xhr.responseText
+                        flag = false;
+                        done=false
+                    }
+                }
+            };
+            xhr.send('date='+dates[i].value+'&describe='+describes[i].value+'&username='+usernames[i].value);
+        }
+
+        if(flag){
+            document.getElementsByClassName("form")[0].submit()
+        }
+    }
+</script>
+</body>
+</html>

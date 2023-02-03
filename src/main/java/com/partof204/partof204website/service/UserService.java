@@ -27,4 +27,8 @@ public class UserService {
         }
         return null;
     }
+
+    public int updateUser(UserBean userBean) {
+        return userMapper.updateByPrimaryKey(userBean);
+    }
 }

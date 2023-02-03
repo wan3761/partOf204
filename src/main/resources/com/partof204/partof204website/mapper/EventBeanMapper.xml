@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.partof204.partof204website.mapper.EventBeanMapper">
+  <resultMap id="BaseResultMap" type="com.partof204.partof204website.bean.EventBean">
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="describeA" jdbcType="VARCHAR" property="describea" />
+    <result column="person" jdbcType="VARCHAR" property="person" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    time, describeA, person
+  </sql>
+  <select id="selectByExample" parameterType="com.partof204.partof204website.bean.EventBeanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from event
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.partof204.partof204website.bean.EventBeanExample">
+    delete from event
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.partof204.partof204website.bean.EventBean">
+    insert into event (time, describeA, person
+      )
+    values (#{time,jdbcType=TIMESTAMP}, #{describea,jdbcType=VARCHAR}, #{person,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.partof204.partof204website.bean.EventBean">
+    insert into event
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="time != null">
+        time,
+      </if>
+      <if test="describea != null">
+        describeA,
+      </if>
+      <if test="person != null">
+        person,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="describea != null">
+        #{describea,jdbcType=VARCHAR},
+      </if>
+      <if test="person != null">
+        #{person,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.partof204.partof204website.bean.EventBeanExample" resultType="java.lang.Long">
+    select count(*) from event
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+    <select id="selectAll" resultType="com.partof204.partof204website.bean.EventBean">
+      select * from event
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+    update event
+    <set>
+      <if test="record.time != null">
+        time = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.describea != null">
+        describeA = #{record.describea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.person != null">
+        person = #{record.person,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update event
+    set time = #{record.time,jdbcType=TIMESTAMP},
+      describeA = #{record.describea,jdbcType=VARCHAR},
+      person = #{record.person,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

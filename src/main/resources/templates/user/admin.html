@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+</head>
+<body>
+<form action="/login" id="form">
+    用户名:<input type="text" th:value="${username}" disabled/><br/>
+    原密码<input  type="password" id="spwd"/><br/>:
+    密码:<input  type="password" id="pwd"/><br/>
+    确认密码:<input type="password" id="re-pwd" /><span id="warring"></span>
+    <br/>
+    <input type="button" onclick="chick()" value="提交"/><a href="/newUser">新用户</a>
+</form>
+
+<style>
+    #warring{
+        color: red;
+    }
+</style>
+<script>
+    function chick(){
+        var pwd = document.getElementById("pwd").value
+        var repwd = document.getElementById("re-pwd").value
+        var spwd = document.getElementById("spwd").value
+        if(pwd!==repwd){
+            document.getElementById("warring").innerText="两次密码不一至"
+            return;
+        }
+        if (pwd === ""){
+            document.getElementById("warring").innerText="两次密码不能为空"
+            return;
+        }
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', '/user/userUpdate', true);
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.send('password='+pwd+'&'+'spwd='+spwd);
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState !== 4) return;
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+                if(xhr.responseText === "ok"){
+                    document.getElementById("form").submit()
+                }else{
+                    document.getElementById("warring").innerText="原密码不正确"
+                }
+            }
+        };
+    }
+</script>
+</body>
+</html>
