@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>所有党员</title>
+</head>
+<body>
+<table border="1">
+    <tr>
+        <td>id</td>
+        <td>名称</td>
+        <td>详情</td>
+    </tr>
+    <tr th:each="e : ${users}">
+        <td th:text="${e.getId()}"></td>
+        <td th:text="${e.getName()}"></td>
+        <td><a th:href="'/user/information?id='+${e.getId()}">详情</a></td>
+    </tr>
+</table>
+</body>
+</html>

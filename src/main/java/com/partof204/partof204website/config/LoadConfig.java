@@ -14,6 +14,9 @@ public class LoadConfig implements WebMvcConfigurer {
         InterceptorRegistration registration = registry.addInterceptor(new UserInterceptor());
         registration.addPathPatterns("/**"); //所有路径都被拦截
         registration.excludePathPatterns(    //添加不拦截路径
+                "/",
+                "/index",
+                "redirect:/index",
                 "/login",                    //登录路径
                 "/**/*.html",                //html静态资源
                 "/**/*.js",                  //js静态资源

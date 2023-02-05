@@ -10,6 +10,7 @@
     原密码<input  type="password" id="spwd"/><br/>:
     密码:<input  type="password" id="pwd"/><br/>
     确认密码:<input type="password" id="re-pwd" /><span id="warring"></span>
+    描述:<br/><textarea cols="50" rows="20" id="describe">[[${describe.getDescribea()}]]</textarea><br/>
     <br/>
     <input type="button" onclick="chick()" value="提交"/><a href="/newUser">新用户</a>
 </form>
@@ -20,24 +21,18 @@
     }
 </style>
 <script>
+
     function chick(){
         var pwd = document.getElementById("pwd").value
         var repwd = document.getElementById("re-pwd").value
         var spwd = document.getElementById("spwd").value
-        if(pwd!==repwd){
-            document.getElementById("warring").innerText="两次密码不一至"
-            return;
-        }
-        if (pwd === ""){
-            document.getElementById("warring").innerText="两次密码不能为空"
-            return;
-        }
+        var describe = document.getElementById("describe").value;
 
         var xhr = new XMLHttpRequest();
 
         xhr.open('POST', '/user/userUpdate', true);
         xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        xhr.send('password='+pwd+'&'+'spwd='+spwd);
+        xhr.send('password='+pwd+'&spwd='+spwd+'&describe='+describe);
 
         xhr.onreadystatechange = () => {
             if (xhr.readyState !== 4) return;

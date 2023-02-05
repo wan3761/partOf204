@@ -12,12 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class Developing {
     @GetMapping("/")
     public String root(HttpServletRequest request){
-
         return "redirect:/index";
     }
 
     @GetMapping("/index")
     public String index(Model model,HttpServletRequest request){
+        if(((UserBean)request.getSession().getAttribute("user")) ==null){
+            model.addAttribute("username","您尚未登录,请<a href='/login'>登录</a>");
+            return "/index";
+        }
         model.addAttribute("username",((UserBean)request.getSession().getAttribute("user")).getName());
         return "/index";
     }

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.partof204.partof204website.mapper.UserBeanMapper">
-  <resultMap id="BaseResultMap" type="com.partof204.partof204website.bean.UserBean">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="salt" jdbcType="VARCHAR" property="salt" />
+<mapper namespace="com.partof204.partof204website.mapper.UserInfomationMapper">
+  <resultMap id="BaseResultMap" type="com.partof204.partof204website.bean.UserInfomation">
+    <id column="iid" jdbcType="INTEGER" property="iid" />
+    <result column="describea" jdbcType="VARCHAR" property="describea" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,15 +64,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, password, salt
+    iid, describea
   </sql>
-  <select id="selectByExample" parameterType="com.partof204.partof204website.bean.UserBeanExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.partof204.partof204website.bean.UserInfomationExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from users
+    from user_information
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -85,79 +83,56 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from users
-    where id = #{id,jdbcType=INTEGER}
+    from user_information
+    where iid = #{iid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from users
-    where id = #{id,jdbcType=INTEGER}
+    delete from user_information
+    where iid = #{iid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.partof204.partof204website.bean.UserBeanExample">
-    delete from users
+  <delete id="deleteByExample" parameterType="com.partof204.partof204website.bean.UserInfomationExample">
+    delete from user_information
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.partof204.partof204website.bean.UserBean">
-    insert into users (id, name, password, 
-      salt)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{salt,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.partof204.partof204website.bean.UserInfomation">
+    insert into user_information (iid, describea)
+    values (#{iid,jdbcType=INTEGER}, #{describea,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.partof204.partof204website.bean.UserBean">
-    insert into users
+  <insert id="insertSelective" parameterType="com.partof204.partof204website.bean.UserInfomation">
+    insert into user_information
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="iid != null">
+        iid,
       </if>
-      <if test="name != null">
-        name,
-      </if>
-      <if test="password != null">
-        password,
-      </if>
-      <if test="salt != null">
-        salt,
+      <if test="describea != null">
+        describea,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="iid != null">
+        #{iid,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="salt != null">
-        #{salt,jdbcType=VARCHAR},
+      <if test="describea != null">
+        #{describea,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.partof204.partof204website.bean.UserBeanExample" resultType="java.lang.Long">
-    select count(*) from users
+  <select id="countByExample" parameterType="com.partof204.partof204website.bean.UserInfomationExample" resultType="java.lang.Long">
+    select count(*) from user_information
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <select id="selectAll" resultType="com.partof204.partof204website.bean.UserBean">
-    select * from users;
-  </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update users
+    update user_information
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.iid != null">
+        iid = #{record.iid,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null">
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
-      <if test="record.salt != null">
-        salt = #{record.salt,jdbcType=VARCHAR},
+      <if test="record.describea != null">
+        describea = #{record.describea,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -165,35 +140,25 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update users
-    set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
-      salt = #{record.salt,jdbcType=VARCHAR}
+    update user_information
+    set iid = #{record.iid,jdbcType=INTEGER},
+      describea = #{record.describea,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.partof204.partof204website.bean.UserBean">
-    update users
+  <update id="updateByPrimaryKeySelective" parameterType="com.partof204.partof204website.bean.UserInfomation">
+    update user_information
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null">
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="salt != null">
-        salt = #{salt,jdbcType=VARCHAR},
+      <if test="describea != null">
+        describea = #{describea,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where iid = #{iid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.partof204.partof204website.bean.UserBean">
-    update users
-    set name = #{name,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      salt = #{salt,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.partof204.partof204website.bean.UserInfomation">
+    update user_information
+    set describea = #{describea,jdbcType=VARCHAR}
+    where iid = #{iid,jdbcType=INTEGER}
   </update>
 </mapper>

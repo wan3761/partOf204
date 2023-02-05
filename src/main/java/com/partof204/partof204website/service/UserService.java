@@ -6,6 +6,8 @@ import com.partof204.partof204website.mapper.UserBeanMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static com.partof204.partof204website.Util.MD5;
 
 @Service
@@ -30,5 +32,13 @@ public class UserService {
 
     public int updateUser(UserBean userBean) {
         return userMapper.updateByPrimaryKey(userBean);
+    }
+
+    public List<UserBean> getAll() {
+        return userMapper.selectAll();
+    }
+
+    public UserBean getUserById(int id) {
+        return userMapper.selectByPrimaryKey(id);
     }
 }
