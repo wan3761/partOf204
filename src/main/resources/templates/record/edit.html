@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件编辑</title>
+</head>
+<body>
+<form action="/record/history" method="get" id="form">
+    <input type="text" id="index" th:value="${event.getIndex()}" style="display: none"/>
+    <input type="date" id="time" th:value="${event.getFormationDate()}"/><br/>
+    <input type="text" id="describeA" th:value="${event.getDescribe()}"/><br/>
+    <input type="text" id="person" th:each="p : ${event.getPerson()}" th:value="${p.getName()}+'  '"/><br/>
+    <span id="warring" style="color: red"></span>
+    <input type="button" value="确定" onclick="doSubmit()"/>
+</form>
+<script>
+    function doSubmit() {
+        var date = document.getElementById("time").value;
+        var describe = document.getElementById("describeA").value;
+        var person = document.getElementById("person").value;
+        var index = document.getElementById("index").value
+        if (date === "" || describe === "" || person === ""){
+            document.getElementById("warring").innerHTML="请核对"
+            return
+        }
+
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', '/history/edit', true);
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.send('index='+index+"&date="+date+"&describe="+describe+"&person="+person);
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState !== 4) return;
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+                if(xhr.responseText === "ok"){
+                    document.getElementById("form").submit()
+                }else{
+                    document.getElementById("warring").innerHTML="失败:"+xhr.responseText;
+                }
+            }
+        };
+    }
+</script>
+</body>
+</html>

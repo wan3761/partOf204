@@ -5,7 +5,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Util {
-
+    public static boolean isNumericZidai(String str) {
+        for (int i = 0; i < str.length(); i++) {
+            System.out.println(str.charAt(i));
+            if (!Character.isDigit(str.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static String MD5(String input) {
         if(input == null || input.length() == 0) {
             return null;

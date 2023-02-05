@@ -6,9 +6,9 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface EventBeanMapper {
-    long countByExample(EventBeanExample example);
 
     List<EventBean> selectAll();
+    long countByExample(EventBeanExample example);
 
     int deleteByExample(EventBeanExample example);
 

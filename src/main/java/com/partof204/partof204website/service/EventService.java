@@ -1,10 +1,12 @@
 package com.partof204.partof204website.service;
 
+import com.partof204.partof204website.Util;
 import com.partof204.partof204website.bean.*;
 import com.partof204.partof204website.mapper.EventBeanMapper;
 import com.partof204.partof204website.mapper.UserBeanMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -34,9 +36,16 @@ public class EventService {
             eventBeanWithUsername.setDescribe(eventBean.getDescribea());
             eventBeanWithUsername.setPerson(new ArrayList<>());
             eventBeanWithUsername.setIndex(i);
+            eventBeanWithUsername.setCreator(userBeanMapper.selectByPrimaryKey(eventBean.getCreator()).getName());
 
-            for (String id : idSs){
+            String[] editors = eventBean.getEditor().split(",");
+            for (String editor : editors){
+                eventBeanWithUsername.getEditor().add(userBeanMapper.selectByPrimaryKey(Integer.parseInt(editor)));
+            }
+
+            for (String id : idSs) {
                 eventBeanWithUsername.getPerson().add(userBeanMapper.selectByPrimaryKey(Integer.valueOf(id)));
+
             }
             result.add(eventBeanWithUsername);
         }
@@ -60,7 +69,7 @@ public class EventService {
         return eventBeanMapper.countByExample(example) > 0;
     }
 
-    public boolean newEvent(String date,String describe,String username){
+    public boolean newEvent(String date,String describe,String username,int creator){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         Date date1 = null;
         try {
@@ -72,6 +81,8 @@ public class EventService {
         EventBean eventBean = new EventBean();
         eventBean.setTime(date1);
         eventBean.setDescribea(describe);
+        eventBean.setCreator(creator);
+        eventBean.setEditor(String.valueOf(creator));
         String[] usernames = username.split(",");
         StringBuilder stringBuffer = new StringBuilder();
         for (String user : usernames){
@@ -125,5 +136,53 @@ public class EventService {
         criteria.andPersonEqualTo(eventBean.getPerson());
 
         eventBeanMapper.deleteByExample(example);
+    }
+
+    public EventBean getById(int id){
+        return eventBeanMapper.selectAll().get(id);
+    }
+
+    public boolean update(int id,String date,String describe,String username,int editor){
+        EventBean eventBean = getById(id);
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        EventBeanExample example = new EventBeanExample();
+            example.createCriteria().andPersonEqualTo(eventBean.getPerson())
+                                    .andDescribeaEqualTo(eventBean.getDescribea())
+                                    .andTimeEqualTo(eventBean.getTime());
+
+        eventBean.setEditor(eventBean.getEditor()+","+editor);
+        try {
+            eventBean.setTime(df.parse(date));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        eventBean.setDescribea(describe);
+        List<Integer> ids = getIdsByNames(username);
+        StringBuilder sb = new StringBuilder();
+        for (Integer idsss : ids) {
+            sb.append(idsss).append(",");
+        }
+        sb.substring(0, sb.length() - 1);
+        eventBean.setPerson(sb.toString());
+        return eventBeanMapper.updateByExampleSelective(eventBean,example) > 0;
+    }
+
+    public int getIdByName(String name) {
+        UserBeanExample example = new UserBeanExample();
+        example.createCriteria().andNameEqualTo(name);
+        return userBeanMapper.selectByExample(example).get(0).getId();
+    }
+
+    public String getNameById(int id) {
+        return userBeanMapper.selectByPrimaryKey(id).getName();
+    }
+
+    public List<Integer> getIdsByNames(String name){
+        List<Integer> ids = new ArrayList<>();
+        for (String name1 : name.split(",")){
+            ids.add(getIdByName(name1));
+        }
+        return ids;
     }
 }

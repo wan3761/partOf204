@@ -5,6 +5,8 @@
     <result column="time" jdbcType="TIMESTAMP" property="time" />
     <result column="describeA" jdbcType="VARCHAR" property="describea" />
     <result column="person" jdbcType="VARCHAR" property="person" />
+    <result column="creator" jdbcType="INTEGER" property="creator" />
+    <result column="editor" jdbcType="VARCHAR" property="editor" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    time, describeA, person
+    time, describeA, person, creator, editor
   </sql>
   <select id="selectByExample" parameterType="com.partof204.partof204website.bean.EventBeanExample" resultMap="BaseResultMap">
     select
@@ -88,10 +90,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.partof204.partof204website.bean.EventBean">
-    insert into event (time, describeA, person
-      )
-    values (#{time,jdbcType=TIMESTAMP}, #{describea,jdbcType=VARCHAR}, #{person,jdbcType=VARCHAR}
-      )
+    insert into event (time, describeA, person, 
+      creator, editor)
+    values (#{time,jdbcType=TIMESTAMP}, #{describea,jdbcType=VARCHAR}, #{person,jdbcType=VARCHAR}, 
+      #{creator,jdbcType=INTEGER}, #{editor,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.partof204.partof204website.bean.EventBean">
     insert into event
@@ -105,6 +107,12 @@
       <if test="person != null">
         person,
       </if>
+      <if test="creator != null">
+        creator,
+      </if>
+      <if test="editor != null">
+        editor,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="time != null">
@@ -115,6 +123,12 @@
       </if>
       <if test="person != null">
         #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="creator != null">
+        #{creator,jdbcType=INTEGER},
+      </if>
+      <if test="editor != null">
+        #{editor,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -139,6 +153,12 @@
       <if test="record.person != null">
         person = #{record.person,jdbcType=VARCHAR},
       </if>
+      <if test="record.creator != null">
+        creator = #{record.creator,jdbcType=INTEGER},
+      </if>
+      <if test="record.editor != null">
+        editor = #{record.editor,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -148,7 +168,9 @@
     update event
     set time = #{record.time,jdbcType=TIMESTAMP},
       describeA = #{record.describea,jdbcType=VARCHAR},
-      person = #{record.person,jdbcType=VARCHAR}
+      person = #{record.person,jdbcType=VARCHAR},
+      creator = #{record.creator,jdbcType=INTEGER},
+      editor = #{record.editor,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

@@ -304,6 +304,136 @@ public class EventBeanExample {
             addCriterion("person not between", value1, value2, "person");
             return (Criteria) this;
         }
+
+        public Criteria andCreatorIsNull() {
+            addCriterion("creator is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatorIsNotNull() {
+            addCriterion("creator is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatorEqualTo(Integer value) {
+            addCriterion("creator =", value, "creator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatorNotEqualTo(Integer value) {
+            addCriterion("creator <>", value, "creator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatorGreaterThan(Integer value) {
+            addCriterion("creator >", value, "creator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatorGreaterThanOrEqualTo(Integer value) {
+            addCriterion("creator >=", value, "creator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatorLessThan(Integer value) {
+            addCriterion("creator <", value, "creator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatorLessThanOrEqualTo(Integer value) {
+            addCriterion("creator <=", value, "creator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatorIn(List<Integer> values) {
+            addCriterion("creator in", values, "creator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatorNotIn(List<Integer> values) {
+            addCriterion("creator not in", values, "creator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatorBetween(Integer value1, Integer value2) {
+            addCriterion("creator between", value1, value2, "creator");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreatorNotBetween(Integer value1, Integer value2) {
+            addCriterion("creator not between", value1, value2, "creator");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorIsNull() {
+            addCriterion("editor is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorIsNotNull() {
+            addCriterion("editor is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorEqualTo(String value) {
+            addCriterion("editor =", value, "editor");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorNotEqualTo(String value) {
+            addCriterion("editor <>", value, "editor");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorGreaterThan(String value) {
+            addCriterion("editor >", value, "editor");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorGreaterThanOrEqualTo(String value) {
+            addCriterion("editor >=", value, "editor");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorLessThan(String value) {
+            addCriterion("editor <", value, "editor");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorLessThanOrEqualTo(String value) {
+            addCriterion("editor <=", value, "editor");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorLike(String value) {
+            addCriterion("editor like", value, "editor");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorNotLike(String value) {
+            addCriterion("editor not like", value, "editor");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorIn(List<String> values) {
+            addCriterion("editor in", values, "editor");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorNotIn(List<String> values) {
+            addCriterion("editor not in", values, "editor");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorBetween(String value1, String value2) {
+            addCriterion("editor between", value1, value2, "editor");
+            return (Criteria) this;
+        }
+
+        public Criteria andEditorNotBetween(String value1, String value2) {
+            addCriterion("editor not between", value1, value2, "editor");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

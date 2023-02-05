@@ -12,11 +12,28 @@
   <button>搜索</button>
 </form>
 <table border="1">
+  <tr>
+    <td>日期</td>
+    <td>描述</td>
+    <td>相关人物</td>
+
+    <td>创建者</td>
+    <td>编辑者</td>
+
+    <td>编辑</td>
+    <td>删除</td>
+  </tr>
+
   <tr th:each="e : ${events}">
     <td th:text="${e.getFormationDate()}"></td>
     <td th:text="${e.getDescribe()}"></td>
     <td th:each="u : ${e.getPerson()}" th:text="${u.getName()+' '}"></td>
+
+    <td th:text="${e.getCreator()}"></td>
+    <td th:each="ed : ${e.getEditor()}" th:text="${ed.getName()}"></td>
+
     <td><a th:href="'/history/delete?index='+${e.getIndex()}" onclick="return doDelete()">删除</a></td>
+    <td><a th:href="'/history/edit?index='+${e.getIndex()}" >编辑</a></td>
   </tr>
 </table>
 <script>

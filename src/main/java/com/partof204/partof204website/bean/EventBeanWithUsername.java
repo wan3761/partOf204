@@ -15,6 +15,26 @@ public class EventBeanWithUsername {
 
     private List<UserBean> person = new ArrayList<>();
 
+    private String creator;
+
+    private List<UserBean> editor = new ArrayList<>();
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public List<UserBean> getEditor() {
+        return editor;
+    }
+
+    public void setEditor(List<UserBean> editor) {
+        this.editor = editor;
+    }
+
     public Date getTime() {
         return time;
     }

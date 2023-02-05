@@ -1,7 +1,5 @@
 package com.partof204.partof204website.bean;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class EventBean {
@@ -10,6 +8,10 @@ public class EventBean {
     private String describea;
 
     private String person;
+
+    private Integer creator;
+
+    private String editor;
 
     public Date getTime() {
         return time;
@@ -35,8 +37,19 @@ public class EventBean {
         this.person = person == null ? null : person.trim();
     }
 
-    public String getFormationDate(){
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        return df.format(time);
+    public Integer getCreator() {
+        return creator;
+    }
+
+    public void setCreator(Integer creator) {
+        this.creator = creator;
+    }
+
+    public String getEditor() {
+        return editor;
+    }
+
+    public void setEditor(String editor) {
+        this.editor = editor == null ? null : editor.trim();
     }
 }
