@@ -19,6 +19,16 @@ public class EventBeanWithUsername {
 
     private String editor;
 
+    private String img;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
     public String getCreator() {
         return creator;
     }

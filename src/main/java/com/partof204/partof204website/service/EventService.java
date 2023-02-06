@@ -1,6 +1,5 @@
 package com.partof204.partof204website.service;
 
-import com.partof204.partof204website.Util;
 import com.partof204.partof204website.bean.*;
 import com.partof204.partof204website.mapper.EventBeanMapper;
 import com.partof204.partof204website.mapper.UserBeanMapper;

@@ -5,8 +5,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
 public class Developing {
@@ -19,9 +17,12 @@ public class Developing {
     public String index(Model model,HttpServletRequest request){
         if(((UserBean)request.getSession().getAttribute("user")) ==null){
             model.addAttribute("username","您尚未登录,请<a href='/login'>登录</a>");
+            model.addAttribute("img","default_face.jpg");
             return "/index";
         }
+        model.addAttribute("img","/upload/"+((UserBean) request.getSession().getAttribute("user")).getImg());
         model.addAttribute("username",((UserBean)request.getSession().getAttribute("user")).getName());
+
         return "/index";
     }
 }

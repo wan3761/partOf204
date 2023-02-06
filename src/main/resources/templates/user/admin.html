@@ -5,12 +5,13 @@
     <title>用户管理</title>
 </head>
 <body>
-<form action="/login" id="form">
+<form action="/" id="form">
     用户名:<input type="text" th:value="${username}" disabled/><br/>
     原密码<input  type="password" id="spwd"/><br/>:
     密码:<input  type="password" id="pwd"/><br/>
     确认密码:<input type="password" id="re-pwd" /><span id="warring"></span>
     描述:<br/><textarea cols="50" rows="20" id="describe">[[${describe.getDescribea()}]]</textarea><br/>
+    头像:<input type="file" id="img" name="img" accept="image/gif, image/jpeg" />
     <br/>
     <input type="button" onclick="chick()" value="提交"/><a href="/newUser">新用户</a>
 </form>
@@ -20,31 +21,54 @@
         color: red;
     }
 </style>
-<script>
+</body>
+</html>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script>
 
-    function chick(){
+        function chick(){
         var pwd = document.getElementById("pwd").value
         var repwd = document.getElementById("re-pwd").value
         var spwd = document.getElementById("spwd").value
         var describe = document.getElementById("describe").value;
-
+        var file = document.getElementById("img")
         var xhr = new XMLHttpRequest();
 
+        var flag = false;
         xhr.open('POST', '/user/userUpdate', true);
         xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
         xhr.send('password='+pwd+'&spwd='+spwd+'&describe='+describe);
 
         xhr.onreadystatechange = () => {
-            if (xhr.readyState !== 4) return;
-            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
-                if(xhr.responseText === "ok"){
-                    document.getElementById("form").submit()
-                }else{
-                    document.getElementById("warring").innerText="原密码不正确"
-                }
+        if (xhr.readyState !== 4) return;
+        if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+        if(xhr.responseText === "ok"){
+        flag = true;
+    }else{
+        document.getElementById("warring").innerText="原密码不正确"
+    }
+    }
+    };
+
+        var formData = new FormData($('#form')[0]);
+        $.ajax({
+            type: 'post',
+            url: "/user/updateImg",
+            data : formData,
+            cache: false,
+            processData : false,
+            contentType : false,
+        }).success(function (data){
+            if (data==='ok') {
+                $('#form')[0].submit();
+            }else {
+                $('#warring')[0].innerHTML = data;
             }
-        };
+        }).error(function(data) {
+            $('#warring')[0].innerHTML = "请上传图片文件";
+        })
+
+
     }
 </script>
-</body>
-</html>

@@ -171,10 +171,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-    <select id="selectAll" resultType="com.partof204.partof204website.bean.ArtcBean">
-      select * from artc
-    </select>
-    <update id="updateByExampleSelective" parameterType="map">
+  <select id="selectAll" resultType="com.partof204.partof204website.bean.ArtcBean">
+    select * from artc
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
     update artc
     <set>
       <if test="record.aid != null">

@@ -45,7 +45,7 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- 指定生成哪些数据库表，要和数据库中对应，不能写错了，这里以t_user表为例，可以写多个；domainObjectName是要生成的实体类名称-->
-        <table tableName="artc" domainObjectName="ArtcBean"/>
+        <table tableName="users" domainObjectName="UserBean"/>
 
         <!-- 有些表的字段需要指定java类型
          <table schema="" tableName="">

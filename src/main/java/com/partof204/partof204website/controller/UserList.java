@@ -1,6 +1,5 @@
 package com.partof204.partof204website.controller;
 
-import com.partof204.partof204website.mapper.UserBeanMapper;
 import com.partof204.partof204website.mapper.UserInfomationMapper;
 import com.partof204.partof204website.service.UserService;
 import jakarta.annotation.Resource;
@@ -31,10 +30,8 @@ public class UserList {
     }
 
     @GetMapping("/logout")
-    public ModelAndView logout(HttpServletRequest request) {
+    public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        ModelAndView modelAndView = new ModelAndView("/index");
-        modelAndView.addObject("username","您尚未登录,请<a href='/login'>登录</a>");
-        return modelAndView;
+        return "redirect:/index";
     }
 }

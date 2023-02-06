@@ -1,59 +1,43 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>首页</title>
+    <title>首页test</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <style type="text/css">
-    #img{
-	    border-radius: 10px;
-	    height:256px;
-	    width:384px;
-	    top: 25%;
-	    left:20%
-	}
-	#img1{
-	    border-radius: 10px;
-	    height:256px;
-	    width:384px;
-	    top: 25%;
-	    left:42.5%;
-	}
-	#img2{
-	    border-radius: 10px;
-	    height:256px;
-	    width:384px;
-	    top: 25%;
-	    left: 65%;
-	}
-	#img3{
-	    border-radius: 10px;
-	    height:256px;
-	    width:384px;
-	    top: 25%;
-	    left: 65%;
-	}
-	#title{
-        position: absolute;
-		top:70%;
-		left:31%
+    .img{
+        border-radius: 15px;
+        height:256px;
+        width:384px;
+        top: 25%;
+        left:20%
+    }
+    #title{
+        top:70%;
+        left:30%
+    }
+    #EXIT{
+        border-radius: 30px;
+        height:252px;
+        width:1160px;
     }
     #t2{
-        position: absolute;
         top:80%;
         left:31%
     }
 </style>
-<body background="3.jpg" style="background-repeat: no-repeat;background-size:cover">
-<span th:utext="${username}"></span><
-<a href="/user/userUpdate"><img src="个人中心.jpg" id="img"></a>
-<a href="/record/history"><img src="党史.jpg" id="img1"></a>
-<a href="/user/list"><img src="党员中心.jpg" id="img2"></a>
-<a href="/logout"><img src="EXIT.jpg" id="img3"></a>
-<a href="/artc/show">文章中心</a>
-<a href="/artc/new">新文章</a>
-<a href="/artc/myArtc">我的文章</a>
-<center><big><big><big><big><h1 id="title" style="color: Blue">更多功能正在开发（草率）</h1></big></big></big></big><h6 id="t2">甩锅：如果页面做的不好看去骂zjp吧，我只是个写代码的</h6></center>
-
+<body background="img/3.jpg" style="background-repeat: no-repeat;background-size:cover">
+<img th:src="${img}" style="width:50px;height:50px"/>
+<span th:utext="${username}"></span><br>
+<center><a href="/user/userUpdate"><img src="img/个人中心.jpg" class="img"></a>
+    <a href="/record/history"><img src="img/党史.jpg" class="img"></a>
+    <a href="/user/list"><img src="img/党员中心.jpg" class="img"></a><br><br><br>
+    <a href="/artc/show"><img src="img/文章中心.jpg" class="img"></a>
+    <a href="/artc/new"><img src="img/创建新文章.jpg" class="img"></a>
+    <a href="/artc/myArtc"><img src="img/我的文章.jpg" class="img"></a><br><br><br>
+    <a href="/logout"><img src="img/EXIT.jpg" id="EXIT"></a>
+    <h1 id="title" style="color: red">千万不要向下翻！！！<h1><br><br><br><br>
+        <big><big><h1 id="title" style="color: Blue">6 更多功能正在开发（草率）</h1></big></big>
+        <h6 id="t2">甩锅：如果页面做的不好看去骂zjp吧，我只是个写代码的</h6></center>
 </body>
 </html>

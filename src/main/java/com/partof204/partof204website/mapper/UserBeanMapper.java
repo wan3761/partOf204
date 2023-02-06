@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 public interface UserBeanMapper {
     long countByExample(UserBeanExample example);
 
+    public List<UserBean> selectAll();
     int deleteByExample(UserBeanExample example);
 
     int deleteByPrimaryKey(Integer id);
@@ -27,6 +28,4 @@ public interface UserBeanMapper {
     int updateByPrimaryKeySelective(UserBean record);
 
     int updateByPrimaryKey(UserBean record);
-
-    List<UserBean> selectAll();
 }

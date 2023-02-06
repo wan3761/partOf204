@@ -6,6 +6,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, password, salt
+    id, name, password, salt, img
   </sql>
   <select id="selectByExample" parameterType="com.partof204.partof204website.bean.UserBeanExample" resultMap="BaseResultMap">
     select
@@ -100,9 +101,9 @@
   </delete>
   <insert id="insert" parameterType="com.partof204.partof204website.bean.UserBean">
     insert into users (id, name, password, 
-      salt)
+      salt, img)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{salt,jdbcType=VARCHAR})
+      #{salt,jdbcType=VARCHAR}, #{img,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.partof204.partof204website.bean.UserBean">
     insert into users
@@ -119,6 +120,9 @@
       <if test="salt != null">
         salt,
       </if>
+      <if test="img != null">
+        img,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -133,6 +137,9 @@
       <if test="salt != null">
         #{salt,jdbcType=VARCHAR},
       </if>
+      <if test="img != null">
+        #{img,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.partof204.partof204website.bean.UserBeanExample" resultType="java.lang.Long">
@@ -141,10 +148,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <select id="selectAll" resultType="com.partof204.partof204website.bean.UserBean">
-    select * from users;
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="selectAll" resultType="com.partof204.partof204website.bean.UserBean">
+      select  * from users
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update users
     <set>
       <if test="record.id != null">
@@ -159,6 +166,9 @@
       <if test="record.salt != null">
         salt = #{record.salt,jdbcType=VARCHAR},
       </if>
+      <if test="record.img != null">
+        img = #{record.img,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -169,7 +179,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       name = #{record.name,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      salt = #{record.salt,jdbcType=VARCHAR}
+      salt = #{record.salt,jdbcType=VARCHAR},
+      img = #{record.img,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -186,6 +197,9 @@
       <if test="salt != null">
         salt = #{salt,jdbcType=VARCHAR},
       </if>
+      <if test="img != null">
+        img = #{img,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -193,7 +207,8 @@
     update users
     set name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      salt = #{salt,jdbcType=VARCHAR}
+      salt = #{salt,jdbcType=VARCHAR},
+      img = #{img,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

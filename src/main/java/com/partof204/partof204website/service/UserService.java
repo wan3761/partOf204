@@ -4,6 +4,9 @@ import com.partof204.partof204website.bean.UserBean;
 import com.partof204.partof204website.bean.UserBeanExample;
 import com.partof204.partof204website.mapper.UserBeanMapper;
 import jakarta.annotation.Resource;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,7 +25,7 @@ public class UserService {
         return userMapper.selectByExample(userBeanExample).get(0);
     }
 
-    public UserBean getUserByUserExample(String username,String password){
+    public UserBean getUserByUserExample(String username, String password){
         UserBean userBean = getUserByName(username);
         if (MD5(password+userBean.getSalt()).equals(userBean.getPassword())){
             return userBean;
@@ -41,4 +44,6 @@ public class UserService {
     public UserBean getUserById(int id) {
         return userMapper.selectByPrimaryKey(id);
     }
+
+
 }

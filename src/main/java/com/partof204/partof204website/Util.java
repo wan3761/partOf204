@@ -1,8 +1,13 @@
 package com.partof204.partof204website;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.math.BigInteger;
+import java.security.DigestInputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
 
 public class Util {
     public static boolean isNumericZidai(String str) {
@@ -36,4 +41,10 @@ public class Util {
         }
         return null;
     }
+
+
+
+
+
+
 }
