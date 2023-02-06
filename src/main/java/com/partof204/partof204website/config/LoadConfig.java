@@ -17,6 +17,9 @@ public class LoadConfig implements WebMvcConfigurer {
                 "/",
                 "/index",
                 "redirect:/index",
+                "/**/*.png",
+                "/**/*.jpg",
+                "/**/*.gif",
                 "/login",                    //登录路径
                 "/**/*.html",                //html静态资源
                 "/**/*.js",                  //js静态资源

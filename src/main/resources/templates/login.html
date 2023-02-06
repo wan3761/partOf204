@@ -4,16 +4,59 @@
     <meta charset="UTF-8">
     <title>登录</title>
 </head>
-<body>
-<form action="/index" id = "form">
-    <input id="name" type="text"/><span class="warring" id="name_text" ></span><br/>
-    <input id="pwd" type="password"/>
-    <span id="pwd_text" class="warring"></span><br/>
-    <input type="button" onclick="chick()" value="登录"></input>
+<body background="dq.png" style="background-repeat: no-repeat;background-size:cover">
+<h1 id="title" style="color: antiquewhite">204 革命党</h1>
+<h1 id="title2" style="color: antiquewhite">官方网站</h1>
+<form action="/index" id = "form" style="padding:60px 50px;background-color: RGBA(52,70,72,0.5);transform: scale(2,2)">
+    <center><span style="color: #fbe0c3" id="sp1">欢迎来到204革命党官网</span></center><br/>
+    <center><span style="color: #ffbb98" id="sp2">首先,请登录</span></center>
+    <input id="name" type="text" placeholder="用户名"/><span class="warring" id="name_text" ></span><br/>
+    <input id="pwd" type="password" placeholder="密码"/>
+    <span id="pwd_text" class="warring" ></span><br/>
+    <input type="button" onclick="chick()" value="登录" style="background-color: #7d8e95;border: #7d8e95"></input>
 </form>
-<style>
+</div>
+</body>
+
+<style type="text/css">
+
+    #title{
+        position: absolute;
+        top: 40%;
+        left: 20%;
+        transform: scale(3,3);
+    }
+    #title2{
+        position: absolute;
+        top: 50%;
+        left: 25%;
+        transform: scale(3,3);
+    }
+    input{
+        border: 0;
+    }
     .warring{
         color: red;
+    }
+    #form {
+        position: absolute;
+        top: 40%;
+        left: 70%;
+    }
+    header{
+        width: 70px;
+        height: 280px;
+        background-color: black;
+        color: white;
+        text-align:center;
+    }
+    input[type="text"],input[type="password"]{
+        margin-top: 10px;
+        width: 280px;
+    }
+    input[type="button"]{
+        width: 280px;
+        margin-top: 10px;
     }
 </style>
 <script>
@@ -49,5 +92,3 @@
         }
     }
 </script>
-</body>
-</html>

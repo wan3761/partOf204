@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>所有文章</title>
+</head>
+<body>
+<table border="1">
+    <tr th:each="a : ${artc}">
+        <td th:text="${a.getAid()}"></td>
+        <td th:text="${a.getTitle()}"></td>
+        <td th:text="${a.getAuthor()}"></td>
+        <td><a th:href="'/artc/showDescride?aid='+${a.getAid()}">查看</a></td>
+    </tr>
+</table>
+</body>
+</html>

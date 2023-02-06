@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>发布文章</title>
+</head>
+<body>
+<form action="/index" id="form">
+    <input id="title" placeholder="标题"/><br/>
+  <textarea cols="50" rows="20" id="describe" placeholder="文章内容（可以使用html）"></textarea><br/>
+    <span style="color: red" id="warring"></span>
+    <input type="button" onclick="doChick()"/>
+</form>
+<script>
+    function doChick(){
+        var title = document.getElementById("title").value
+        var describe = document.getElementById("describe").value
+        if (describe === ""){
+            document.getElementById("warring").innerText="内容不能为空"
+            return;
+        }
+        if (title === ""){
+            document.getElementById("warring").innerText="标题不能为空"
+            return;
+        }
+
+        var xhr = new XMLHttpRequest();
+
+        xhr.open('POST', '/artc/new', true);
+        xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xhr.send('title='+title+'&'+'describe='+describe);
+
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState !== 4) return;
+            if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+                if(xhr.responseText === "ok"){
+                    document.getElementById("form").submit()
+                }else{
+                    document.getElementById("warring").innerText="上传失败"
+                }
+            }
+        };
+    }
+</script>
+
+</body>
+</html>

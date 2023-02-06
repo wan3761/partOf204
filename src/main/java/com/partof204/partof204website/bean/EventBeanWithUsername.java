@@ -13,11 +13,11 @@ public class EventBeanWithUsername {
 
     private String describe;
 
-    private List<UserBean> person = new ArrayList<>();
+    private String person;
 
     private String creator;
 
-    private List<UserBean> editor = new ArrayList<>();
+    private String editor;
 
     public String getCreator() {
         return creator;
@@ -27,11 +27,11 @@ public class EventBeanWithUsername {
         this.creator = creator;
     }
 
-    public List<UserBean> getEditor() {
+    public String getEditor() {
         return editor;
     }
 
-    public void setEditor(List<UserBean> editor) {
+    public void setEditor(String editor) {
         this.editor = editor;
     }
 
@@ -51,11 +51,11 @@ public class EventBeanWithUsername {
         this.describe = describe == null ? null : describe.trim();
     }
 
-    public List<UserBean> getPerson() {
+    public String getPerson() {
         return person;
     }
 
-    public void setPerson(List<UserBean> person) {
+    public void setPerson(String person) {
         this.person = person;
     }
 

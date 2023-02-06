@@ -6,7 +6,6 @@ import com.partof204.partof204website.mapper.EventBeanMapper;
 import com.partof204.partof204website.mapper.UserBeanMapper;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.util.StringUtils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -34,19 +33,19 @@ public class EventService {
             EventBeanWithUsername eventBeanWithUsername = new EventBeanWithUsername();
             eventBeanWithUsername.setTime(eventBean.getTime());
             eventBeanWithUsername.setDescribe(eventBean.getDescribea());
-            eventBeanWithUsername.setPerson(new ArrayList<>());
+            eventBeanWithUsername.setPerson("");
             eventBeanWithUsername.setIndex(i);
             eventBeanWithUsername.setCreator(userBeanMapper.selectByPrimaryKey(eventBean.getCreator()).getName());
 
             String[] editors = eventBean.getEditor().split(",");
             for (String editor : editors){
-                eventBeanWithUsername.getEditor().add(userBeanMapper.selectByPrimaryKey(Integer.parseInt(editor)));
+                eventBeanWithUsername.setEditor(eventBeanWithUsername.getEditor()+","+userBeanMapper.selectByPrimaryKey(Integer.parseInt(editor)));
             }
 
             for (String id : idSs) {
-                eventBeanWithUsername.getPerson().add(userBeanMapper.selectByPrimaryKey(Integer.valueOf(id)));
-
+                eventBeanWithUsername.setPerson(eventBeanWithUsername.getPerson()+","+(userBeanMapper.selectByPrimaryKey(Integer.valueOf(id))).getName());
             }
+            eventBeanWithUsername.setPerson(eventBeanWithUsername.getPerson().substring(1,eventBeanWithUsername.getPerson().length()));
             result.add(eventBeanWithUsername);
         }
         return result;

@@ -26,6 +26,7 @@ public class RecordController {
     public ModelAndView showHistory(Model model){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("events",eventService.toEventBeanWithUsername(eventService.getAllEvents()));
+
         modelAndView.setViewName("/record/history");
         return modelAndView;
     }

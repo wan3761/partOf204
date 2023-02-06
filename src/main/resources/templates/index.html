@@ -4,10 +4,56 @@
     <title>首页</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
-<body>
-<span th:utext="${username}"></span><br/>
-<a href="/user/userUpdate">个人中心</a><br/>
-<a href="/record/history">党史</a><br/>
-<a href="/user/list">党员中心</a>
+<style type="text/css">
+    #img{
+	    border-radius: 10px;
+	    height:256px;
+	    width:384px;
+	    top: 25%;
+	    left:20%
+	}
+	#img1{
+	    border-radius: 10px;
+	    height:256px;
+	    width:384px;
+	    top: 25%;
+	    left:42.5%;
+	}
+	#img2{
+	    border-radius: 10px;
+	    height:256px;
+	    width:384px;
+	    top: 25%;
+	    left: 65%;
+	}
+	#img3{
+	    border-radius: 10px;
+	    height:256px;
+	    width:384px;
+	    top: 25%;
+	    left: 65%;
+	}
+	#title{
+        position: absolute;
+		top:70%;
+		left:31%
+    }
+    #t2{
+        position: absolute;
+        top:80%;
+        left:31%
+    }
+</style>
+<body background="3.jpg" style="background-repeat: no-repeat;background-size:cover">
+<span th:utext="${username}"></span><
+<a href="/user/userUpdate"><img src="个人中心.jpg" id="img"></a>
+<a href="/record/history"><img src="党史.jpg" id="img1"></a>
+<a href="/user/list"><img src="党员中心.jpg" id="img2"></a>
+<a href="/logout"><img src="EXIT.jpg" id="img3"></a>
+<a href="/artc/show">文章中心</a>
+<a href="/artc/new">新文章</a>
+<a href="/artc/myArtc">我的文章</a>
+<center><big><big><big><big><h1 id="title" style="color: Blue">更多功能正在开发（草率）</h1></big></big></big></big><h6 id="t2">甩锅：如果页面做的不好看去骂zjp吧，我只是个写代码的</h6></center>
+
 </body>
 </html>

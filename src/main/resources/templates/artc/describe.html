@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文章详情</title>
+</head>
+<body>
+<center><h1 th:text="${artc.getTitle()}"></h1></center>
+<center><h3 th:text="${service.getNameById(artc.getAuthor())}"></h3></center>
+<h3 th:utext="${artc.getArtc()}"></h3>
+</body>
+</html>

@@ -9,7 +9,7 @@
     <input type="text" id="index" th:value="${event.getIndex()}" style="display: none"/>
     <input type="date" id="time" th:value="${event.getFormationDate()}"/><br/>
     <input type="text" id="describeA" th:value="${event.getDescribe()}"/><br/>
-    <input type="text" id="person" th:each="p : ${event.getPerson()}" th:value="${p.getName()}+'  '"/><br/>
+    <input type="text" id="person" th:value="${event.getPerson()}"/><br/>
     <span id="warring" style="color: red"></span>
     <input type="button" value="确定" onclick="doSubmit()"/>
 </form>
