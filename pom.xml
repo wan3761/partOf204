@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.partof204</groupId>
     <artifactId>partOf204</artifactId>
-    <version>0.0.9-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>204part</name>
     <description>204part</description>
     <properties>

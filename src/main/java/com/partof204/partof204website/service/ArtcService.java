@@ -48,22 +48,27 @@ public class ArtcService {
     }
 
     public ArtcBean noXss(ArtcBean o){
-        String artc = o.getArtc();
-        String[] artc1 = artc.split("<script");
-        artc="";
-        for (String artc2 : artc1) {
-            artc+=artc2;
-        }
-        o.setArtc(artc);
-
-        artc = o.getArtc();
-        artc1 = artc.split("script>");
-        artc="";
-        for (String artc2 : artc1) {
-            artc+=artc2;
-        }
-        o.setArtc(artc);
+        o.setArtc(noXss(o.getArtc()));
         return o;
+    }
+
+    public String noXss(String artc){
+        while (true) {
+            String[] artc1 = artc.split("<script");
+            if (artc1.length <= 1 ){
+                return artc1[0];
+            }
+            artc = "";
+            for (String artc2 : artc1) {
+                artc += artc2+" ";
+            }
+
+            artc1 = artc.split("script>");
+            artc = "";
+            for (String artc2 : artc1) {
+                artc += artc2+" ";
+            }
+        }
     }
 
     public boolean newArtc(int author,String title, String describe){

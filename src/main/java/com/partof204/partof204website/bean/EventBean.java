@@ -3,6 +3,8 @@ package com.partof204.partof204website.bean;
 import java.util.Date;
 
 public class EventBean {
+    private Integer id;
+
     private Date time;
 
     private String describea;
@@ -12,6 +14,14 @@ public class EventBean {
     private Integer creator;
 
     private String editor;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public Date getTime() {
         return time;

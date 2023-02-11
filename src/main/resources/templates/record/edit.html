@@ -6,7 +6,7 @@
 </head>
 <body>
 <form action="/record/history" method="get" id="form">
-    <input type="text" id="index" th:value="${event.getIndex()}" style="display: none"/>
+    <input type="text" id="index" th:value="${event.getId()}" style="display: none"/>
     <input type="date" id="time" th:value="${event.getFormationDate()}"/><br/>
     <input type="text" id="describeA" th:value="${event.getDescribe()}"/><br/>
     <input type="text" id="person" th:value="${event.getPerson()}"/><br/>

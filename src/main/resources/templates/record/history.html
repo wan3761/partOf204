@@ -6,9 +6,8 @@
 </head>
 <body>
 <form id="search-form" action="/record/search">
-  日期:<input type="date" name="date"/>&nbsp&nbsp
-  描述:<input type="text" name="describe"/>&nbsp&nbsp
-  人物:<input type="text" name="person"/>&nbsp&nbsp
+  起始日期:<input type="date" name="sdate"/>&nbsp&nbsp
+  终止日期:<input type="date" name="edate"/>&nbsp&nbsp
   <button>搜索</button>
 </form>
 <table border="1">
@@ -31,8 +30,8 @@
     <td th:text="${e.getCreator()}"></td>
     <!--<td th:text="${e.getEditor()}"></td>-->
 
-    <td><a th:href="'/history/delete?index='+${e.getIndex()}" onclick="return doDelete()">删除</a></td>
-    <td><a th:href="'/history/edit?index='+${e.getIndex()}" >编辑</a></td>
+    <td><a th:href="'/history/delete?index='+${e.getId()}" onclick="return doDelete()">删除</a></td>
+    <td><a th:href="'/history/edit?index='+${e.getId()}" >编辑</a></td>
   </tr>
 </table>
 <script>

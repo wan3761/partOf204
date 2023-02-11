@@ -4,6 +4,7 @@ import com.partof204.partof204website.bean.UserBean;
 import com.partof204.partof204website.bean.UserInfomation;
 import com.partof204.partof204website.mapper.UserBeanMapper;
 import com.partof204.partof204website.mapper.UserInfomationMapper;
+import com.partof204.partof204website.service.ArtcService;
 import com.partof204.partof204website.service.UserService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,6 +35,9 @@ public class UserAdmin {
     @Resource
     UserBeanMapper userBeanMapper;
 
+    @Resource
+    ArtcService artcService;
+
     @PostMapping("/user/userUpdate")
     @ResponseBody
     public String userUpdate(HttpServletRequest request, String password, String spwd,String describe){
@@ -46,7 +50,7 @@ public class UserAdmin {
             if (userService.updateUser(userBean)>0){
                 UserInfomation userInfomation = new UserInfomation();
                 userInfomation.setIid(((UserBean) request.getSession().getAttribute("user")).getId());
-                userInfomation.setDescribea(describe);
+                userInfomation.setDescribea(artcService.noXss(describe));
                 userInfomationMapper.updateByPrimaryKeySelective(userInfomation);
                 request.getSession().invalidate();
                 return "ok";
@@ -54,7 +58,7 @@ public class UserAdmin {
         }else {
             UserInfomation userInfomation = new UserInfomation();
             userInfomation.setIid(((UserBean) request.getSession().getAttribute("user")).getId());
-            userInfomation.setDescribea(describe);
+            userInfomation.setDescribea(artcService.noXss(describe));
             userInfomationMapper.updateByPrimaryKeySelective(userInfomation);
             return "ok";
         }

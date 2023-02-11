@@ -49,23 +49,30 @@ public class RecordController {
     }
 
     @RequestMapping("/record/search")
-    public ModelAndView searchHistory(Model model,String date,String describe,String person){
-        if (date.equals(describe) && describe.equals(person) && date.equals("")){
+    public ModelAndView searchHistory(Model model,String sdate,String edate){
+        if ("".equals(sdate) && sdate.equals(edate)){
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.addObject("events",eventService.toEventBeanWithUsername(eventService.getAllEvents()));
             modelAndView.setViewName("/record/history");
             return modelAndView;
         }
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("events",eventService.toEventBeanWithUsername(eventService.getEventLike(date,describe,person)));
+        modelAndView.addObject("events",eventService.toEventBeanWithUsername(eventService.getEventIn(sdate,edate)));
         modelAndView.setViewName("/record/history");
         return modelAndView;
     }
 
     @GetMapping("/history/delete")
-    public String delete(String index){
+    public ModelAndView delete(String index,HttpServletRequest request,Model model){
+        ModelAndView modelAndView = new ModelAndView();
+        if (!eventService.canEditOrDelete((UserBean) request.getSession().getAttribute("user"), Integer.parseInt(index))){
+            modelAndView.setViewName("/error");
+            modelAndView.addObject("msg","没有操作权限");
+            return modelAndView;
+        }
         eventService.deleteByIndex(Integer.parseInt(index));
-        return "redirect:/record/history";
+        modelAndView.setViewName("redirect:/record/history");
+        return modelAndView;
     }
 
     @GetMapping("/history/edit")
@@ -84,6 +91,9 @@ public class RecordController {
 
         if ("".equals(date) || "".equals(describe) || "".equals(person)){
             return "不能为空";
+        }
+        if (!eventService.canEditOrDelete((UserBean) request.getSession().getAttribute("user"),Integer.parseInt(index))){
+            return "没有编辑权限";
         }
         if (!eventService.update(Integer.parseInt(index),date,describe,person,((UserBean)request.getSession().getAttribute("user")).getId())){
             return "用户不存在";

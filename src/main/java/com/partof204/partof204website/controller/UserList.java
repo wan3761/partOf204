@@ -32,6 +32,6 @@ public class UserList {
     @GetMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "redirect:/index";
+        return "redirect:/login";
     }
 }

@@ -6,11 +6,12 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface EventBeanMapper {
-
-    List<EventBean> selectAll();
     long countByExample(EventBeanExample example);
 
+    List<EventBean> selectAll();
     int deleteByExample(EventBeanExample example);
+
+    int deleteByPrimaryKey(Integer id);
 
     int insert(EventBean record);
 
@@ -18,7 +19,13 @@ public interface EventBeanMapper {
 
     List<EventBean> selectByExample(EventBeanExample example);
 
+    EventBean selectByPrimaryKey(Integer id);
+
     int updateByExampleSelective(@Param("record") EventBean record, @Param("example") EventBeanExample example);
 
     int updateByExample(@Param("record") EventBean record, @Param("example") EventBeanExample example);
+
+    int updateByPrimaryKeySelective(EventBean record);
+
+    int updateByPrimaryKey(EventBean record);
 }

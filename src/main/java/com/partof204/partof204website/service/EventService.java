@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EventService {
@@ -35,6 +36,7 @@ public class EventService {
             eventBeanWithUsername.setPerson("");
             eventBeanWithUsername.setIndex(i);
             eventBeanWithUsername.setCreator(userBeanMapper.selectByPrimaryKey(eventBean.getCreator()).getName());
+            eventBeanWithUsername.setId(eventBean.getId());
 
             String[] editors = eventBean.getEditor().split(",");
             for (String editor : editors){
@@ -99,55 +101,46 @@ public class EventService {
         return true;
     }
 
-    public List<EventBean> getEventLike(String date,String describe,String person){
+    public List<EventBean> getEventIn(String sdate,String edate){
         EventBeanExample example = new EventBeanExample();
         EventBeanExample.Criteria criteria = example.createCriteria();
-        if (!date.equals("")){
+        if (!sdate.equals("")){
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            Date date1 = null;
+            Date sdate1 = null;
             try {
-                date1 = df.parse(date);
+                sdate1 = df.parse(sdate);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
-            criteria.andTimeEqualTo(date1);
+            criteria.andTimeGreaterThan(sdate1);
         }
-        if (!describe.equals("")){
-            criteria.andDescribeaLike(describe);
+
+        if (!edate.equals("")){
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            Date edate1 = null;
+            try {
+                edate1 = df.parse(edate);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            criteria.andTimeLessThan(edate1);
         }
-        if (!person.equals("")){
-            criteria.andPersonLike(person);
-        }
+
         return eventBeanMapper.selectByExample(example);
     }
 
     public void deleteByIndex(int index){
-        List<EventBean> list = eventBeanMapper.selectAll();
-        if (index+1 > list.size()){
-            return;
-        }
-        EventBean eventBean = list.get(index);
-        EventBeanExample example = new EventBeanExample();
-        EventBeanExample.Criteria criteria = example.createCriteria();
-        criteria.andTimeEqualTo(eventBean.getTime());
-        criteria.andDescribeaEqualTo(eventBean.getDescribea());
-        criteria.andPersonEqualTo(eventBean.getPerson());
-
-        eventBeanMapper.deleteByExample(example);
+        eventBeanMapper.deleteByPrimaryKey(index);
     }
 
     public EventBean getById(int id){
-        return eventBeanMapper.selectAll().get(id);
+        return eventBeanMapper.selectByPrimaryKey(id);
     }
 
     public boolean update(int id,String date,String describe,String username,int editor){
         EventBean eventBean = getById(id);
 
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        EventBeanExample example = new EventBeanExample();
-            example.createCriteria().andPersonEqualTo(eventBean.getPerson())
-                                    .andDescribeaEqualTo(eventBean.getDescribea())
-                                    .andTimeEqualTo(eventBean.getTime());
 
         eventBean.setEditor(eventBean.getEditor()+","+editor);
         try {
@@ -163,7 +156,7 @@ public class EventService {
         }
         sb.substring(0, sb.length() - 1);
         eventBean.setPerson(sb.toString());
-        return eventBeanMapper.updateByExampleSelective(eventBean,example) > 0;
+        return eventBeanMapper.updateByPrimaryKey(eventBean) > 0;
     }
 
     public int getIdByName(String name) {
@@ -176,11 +169,30 @@ public class EventService {
         return userBeanMapper.selectByPrimaryKey(id).getName();
     }
 
+
+
     public List<Integer> getIdsByNames(String name){
         List<Integer> ids = new ArrayList<>();
         for (String name1 : name.split(",")){
             ids.add(getIdByName(name1));
         }
         return ids;
+    }
+
+    public List<String> getNamesByIds(String ids){
+        String[] idss=ids.split(",");
+        List<String> names = new ArrayList<>();
+        for (String id1 : idss) {
+            names.add(getNameById(Integer.parseInt(id1)));
+        }
+        return names;
+    }
+
+    public boolean canEditOrDelete(UserBean userBean,int id){
+        EventBean eventBean = getById(id);
+        if (Objects.equals(eventBean.getCreator(), userBean.getId())){
+            return true;
+        }
+        return !getNamesByIds(eventBean.getPerson()).contains(userBean.getName());
     }
 }

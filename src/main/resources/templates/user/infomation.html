@@ -5,9 +5,10 @@
     <title>详情</title>
 </head>
 <body>
-id:<span th:text="${user.getId()}"></span><br/>
-名称:<span th:text="${user.getName()}"></span><br/>
-简介:<span th:text="${describe}"></span><br/>
+id:<span th:text="${user.getId()}"></span><br/><br/>
+头像:<br/><img th:src="@{${'/upload/'+user.getImg()}}"/><br/><br/>
+名称:<span th:text="${user.getName()}"></span><br/><br/>
+简介:<br/><span th:utext="${describe}"></span><br/><br/>
 <a href="/user/list">确定</a>
 </body>
 </html>
