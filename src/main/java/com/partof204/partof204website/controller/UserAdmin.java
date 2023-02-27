@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import static com.partof204.partof204website.Util.MD5;
@@ -105,7 +106,6 @@ public class UserAdmin {
         fos.flush();
         fos.close();
         userBean.setImg(name);
-
 
         return userBeanMapper.updateByPrimaryKeySelective(userBean) > 0 ? "ok":"error";
     }

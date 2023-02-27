@@ -25,7 +25,7 @@ public class ArtcService {
         return artcBeanMapper.selectByPrimaryKey(id);
     }
 
-    public List<ArtcBean> noXss(List<ArtcBean> list){
+    public static List<ArtcBean> noXss(List<ArtcBean> list){
         List<ArtcBean> list1 = new ArrayList<>();
         for (ArtcBean o : list) {
             String artc = o.getArtc();
@@ -47,12 +47,12 @@ public class ArtcService {
         return list1;
     }
 
-    public ArtcBean noXss(ArtcBean o){
+    public static ArtcBean noXss(ArtcBean o){
         o.setArtc(noXss(o.getArtc()));
         return o;
     }
 
-    public String noXss(String artc){
+    public static String noXss(String artc){
         while (true) {
             String[] artc1 = artc.split("<script");
             if (artc1.length <= 1 ){
